@@ -15,7 +15,7 @@ DATASET_COLUMNS = 'productId,' \
                   'score,' \
                   'time,' \
                   'summary,' \
-                  'text\n'
+                  'text\n'.encode('utf-8')
 
 REGEXP = 'product\/productId: (.*)\s*' \
          'product\/title: (.*)\s*' \
@@ -80,15 +80,14 @@ def write_column_names(output_file):
 
 def export_to_csv(parsed_data, file_path):
     print('Write output \'%s\' file.' % file_path)
-    output_file = open(file_path, 'w')
+    output_file = open(file_path, 'wb')
 
     print('Export items data.')
     write_column_names(output_file)
     for item in parsed_data:
-        decoded_item = list(map(lambda x: '\"' + x.decode('utf-8') + '\"', item))
-
-        output_file.write(','.join(decoded_item[:-1]))
-        output_file.write(decoded_item[-1] + '\n')
+        item_without_quotes = list(map(lambda x: b'"' + x.replace(b'"', b'\\"') + b'"', item))
+        output_file.write(b','.join(item_without_quotes))
+        output_file.write(b'\n')
 
 
 def main(argv):
