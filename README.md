@@ -5,5 +5,10 @@ In order to run this script you need to have [Python3](https://www.python.org/do
 
 ### How to run this script
 ```
+python3 main.py -i input_file.txt -o output_file.csv
+```
+
+Example:
+```
 python3 main.py -i ../test_data/Industrial_and_Scientific.txt -o ../test_data/Industrial_and_Scientific.csv
 ```
